@@ -23,6 +23,7 @@ jobs:
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the SAST issues to GitHub Code Scanning
         uses: snyk/actions/ruby@master
+        continue-on-error: true # To make sure that SARIF upload gets called
         # For Snyk Open Source you must first set up the development environment for your application's dependencies
         # For example for Node
         #- uses: actions/setup-node@v3
@@ -32,5 +33,5 @@ jobs:
           # This is where you will need to introduce the Snyk API token created with your Snyk account
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --all-projects
+          args: --all-projects --sarif-file-output=snyk.sarif
 
