@@ -39,12 +39,14 @@ jobs:
       env:
         BRAKEMAN_VERSION: '6.0.1' # SARIF support is provided in Brakeman version 4.10+
       run: |
+        cd backend
         gem install brakeman --version $BRAKEMAN_VERSION
 
     # Execute Brakeman CLI and generate a SARIF output with the security issues identified during the analysis
     - name: Scan
       continue-on-error: true
       run: |
+        cd backend
         brakeman -f sarif -o output.sarif.json .
 
     # Upload the SARIF file generated in the previous step
